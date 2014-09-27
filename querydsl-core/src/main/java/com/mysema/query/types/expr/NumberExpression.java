@@ -265,7 +265,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>this &gt;= right</code> expression
+     * Create a {@code this >= right} expression
      *
      * @param <A>
      * @param right rhs of the comparison
@@ -277,7 +277,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>this &gt;= right</code> expression
+     * Create a {@code this >= right} expression
      *
      * @param <A>
      * @param right rhs of the comparison
@@ -305,7 +305,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>this &gt; right</code> expression
+     * Create a {@code this > right} expression
      *
      * @param <A>
      * @param right rhs of the comparison
@@ -317,7 +317,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>this &gt; right</code> expression
+     * Create a {@code this > right} expression
      *
      * @param <A>
      * @param right rhs of the comparison
@@ -345,7 +345,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>from &lt; this &lt; to</code> expression
+     * Create a {@code from <= this <= to} expression
      *
      * @param <A>
      * @param from
@@ -367,7 +367,7 @@ public abstract class NumberExpression<T extends Number & Comparable<?>> extends
     }
 
     /**
-     * Create a <code>from &lt; this &lt; to</code> expression
+     * Create a {@code from <= this <= to} expression
      *
      * @param <A>
      * @param from
