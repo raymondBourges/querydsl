@@ -14,6 +14,7 @@
 package com.mysema.query.sql;
 
 import javax.annotation.Nullable;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +30,10 @@ import com.mysema.query.support.QueryMixin;
 import com.mysema.query.types.*;
 import com.mysema.query.types.expr.Wildcard;
 import com.mysema.util.ResultSetAdapter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 /**
  * AbstractSQLQuery is the base type for SQL query implementations
@@ -161,8 +164,9 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
         listeners.preRender(context);
         SQLSerializer serializer = serialize(false);
         String queryString = serializer.toString();
+        MDC.put("constants", String.valueOf(serializer.getConstants()));
         if (logger.isDebugEnabled()) {
-            logger.debug("query : {}\n with : {}", queryString, serializer.getConstants());
+            logger.debug("query : {}", queryString);
         }
         context.addSQL(queryString);
         listeners.rendered(context);
@@ -195,6 +199,7 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
             onException(context, e);
             throw configuration.translate(queryString, constants, e);
         } finally {
+            MDC.remove("constants");
             reset();
             endContext(context);
         }
@@ -217,8 +222,9 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
         listeners.preRender(context);
         SQLSerializer serializer = serialize(false);
         final String queryString = serializer.toString();
+        MDC.put("constants", String.valueOf(serializer.getConstants()));
         if (logger.isDebugEnabled()) {
-            logger.debug("query : {}\n with : {}", queryString, serializer.getConstants());
+            logger.debug("query : {}", queryString);
         }
         context.addSQL(queryString);
         listeners.rendered(context);
@@ -275,6 +281,7 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
             onException(context, e);
             throw configuration.translate(queryString, constants, e);
         } finally {
+            MDC.remove("constants");
             endContext(context);
             reset();
         }
@@ -289,8 +296,9 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
         listeners.preRender(context);
         SQLSerializer serializer = serialize(false);
         final String queryString = serializer.toString();
+        MDC.put("constants", String.valueOf(serializer.getConstants()));
         if (logger.isDebugEnabled()) {
-            logger.debug("query : {}\n with : {}", queryString, serializer.getConstants());
+            logger.debug("query : {}", queryString);
         }
         context.addSQL(queryString);
         listeners.rendered(context);
@@ -364,6 +372,7 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
             onException(context, e);
             throw configuration.translate(queryString, constants, e);
         } finally {
+            MDC.remove("constants");
             endContext(context);
             reset();
         }
@@ -462,8 +471,9 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
         listeners.preRender(context);
         SQLSerializer serializer = serialize(true);
         final String queryString = serializer.toString();
+        MDC.put("constants", String.valueOf(serializer.getConstants()));
         if (logger.isDebugEnabled()) {
-            logger.debug("query : {}\n with : {}", queryString, serializer.getConstants());
+            logger.debug("query : {}", queryString);
         }
         context.addSQL(queryString);
         listeners.rendered(context);
@@ -499,6 +509,7 @@ public abstract class AbstractSQLQuery<Q extends AbstractSQLQuery<Q>> extends Pr
                     stmt.close();
                 }
             }
+            MDC.remove("constants");
             endContext(context);
         }
     }
